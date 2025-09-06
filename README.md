@@ -1,7 +1,7 @@
 
 
 # Windows Print Server Network Printer Installation Tool  
-### Streamlined Printer Management for IT Administrators
+### Streamlined Printer Installation for IT Administrators
 
 ---
 
