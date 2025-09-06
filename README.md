@@ -5,7 +5,7 @@
 ---
 
 ## Executive Summary  
-The Windows Print Server Network Printer Installation Tool is a lightweight, interactive HTA-based utility designed to simplify and centralize printer management tasks across enterprise environments. By leveraging PowerShell and ActiveX scripting, it enables administrators to perform remote printer installations, audit configurations, and validate network connectivity—all from a single interface.
+The Windows Print Server Network Printer Installation Tool is a lightweight, interactive HTA-based utility designed to simplify and centralize printer installation tasks across enterprise environments. By leveraging PowerShell and ActiveX scripting, it enables administrators to perform remote printer installations, audit configurations, and validate network connectivity—all from a single interface.
 
 ---
 
