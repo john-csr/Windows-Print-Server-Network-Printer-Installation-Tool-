@@ -1,5 +1,8 @@
 +-------------------------------------------------------------+
 |        Windows Print Server Network Printer Setup Flow      |
+|                                                             |
+|        Authored by: John C.                                 |
+|        Date: September 6, 2025                              |
 +-------------------------------------------------------------+
 
 START
