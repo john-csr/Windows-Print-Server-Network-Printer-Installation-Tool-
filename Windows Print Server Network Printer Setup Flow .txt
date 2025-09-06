@@ -1,0 +1,48 @@
++-------------------------------------------------------------+
+|        Windows Print Server Network Printer Setup Flow      |
++-------------------------------------------------------------+
+
+START
+  ↓
+Connect Printer to Network
+  (via Ethernet or Wi-Fi)
+  ↓
+Print Network Summary Page
+  ↓
+Login to Printer's Web Console
+  (via DHCP-assigned IP)
+  ↓
+Determine Available Port
+  ├─> Open Tool
+  ├─> Enter Server Name in "Get Printer Ports"
+  └─> Click [Get Ports]
+  ↓
+Ping Unused IP Address
+  ├─> Enter IP in "Ping IP Address"
+  └─> Click [Ping] to verify availability
+  ↓
+Go to Printer Web Console
+  ↓
+Change Address Type to Static
+  └─> Enter the unused IP address
+  ↓
+List Installed Drivers
+  ├─> Enter Server Name in "List Installed Print Drivers"
+  └─> Click [List Drivers] to find compatible driver
+  ↓
+Install Printer on Server
+  ├─> Enter Server Name
+  ├─> Enter Available Port (IP)
+  ├─> Enter Printer Share Name
+  ├─> Enter Printer Driver Name
+  └─> Click [Install Printer on Server]
+       → Wait a few minutes for installation
+  ↓
+Verify Installation
+  ├─> Enter Server Name in "List Printers on Server"
+  └─> Click [List Printers] to confirm printer is listed
+  ↓
+Install Printer on Client Machine
+  (via standard Windows printer setup or script)
+  ↓
+END
