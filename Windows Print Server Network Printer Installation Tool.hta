@@ -84,33 +84,34 @@
       runPowerShell(cmd, "outputDrivers");
     }
 
-    function installPrinter() {
-      var server = sanitizeInput(document.getElementById("installServer").value);
-      var portIP = sanitizeInput(document.getElementById("installPort").value);
-      var printerName = sanitizeInput(document.getElementById("installShare").value);
-      var driverName = sanitizeInput(document.getElementById("printerDriver").value);
+   function installPrinter() {
+    var server = sanitizeInput(document.getElementById("installServer").value);
+    var portIP = sanitizeInput(document.getElementById("installPort").value);
+    var printerName = sanitizeInput(document.getElementById("installName").value);   // local printer name
+    var shareName = sanitizeInput(document.getElementById("installShare").value);    // network share name
+    var driverName = sanitizeInput(document.getElementById("printerDriver").value);
 
-      if (!server || !portIP || !printerName || !driverName) {
+    if (!server || !portIP || !printerName || !shareName || !driverName) {
         alert("All fields must be filled out.");
         return;
-      }
-
-      if (!isValidIP(portIP)) {
-        alert("Invalid IP address format.");
-        return;
-      }
-
-      var cmd = '$portName = "IP_" + "' + portIP + '"; ';
-      cmd += 'if (-not (Get-PrinterPort -ComputerName \'' + server + '\' -Name $portName -ErrorAction SilentlyContinue)) { ';
-      cmd += 'Add-PrinterPort -ComputerName \'' + server + '\' -Name $portName -PrinterHostAddress "' + portIP + '"; ';
-      cmd += '} ';
-      cmd += 'Add-Printer -ComputerName \'' + server + '\' -Name "' + printerName + '" -PortName $portName -DriverName "' + driverName + '"';
-
-      runPowerShell(cmd); // No output element passed
-      alert("Printer installation command sent.");
     }
 
-    function listPrinters() {
+    if (!isValidIP(portIP)) {
+        alert("Invalid IP address format.");
+        return;
+    }
+
+    var cmd = '$portName = "IP_" + "' + portIP + '"; ';
+    cmd += 'if (-not (Get-PrinterPort -ComputerName \'' + server + '\' -Name $portName -ErrorAction SilentlyContinue)) { ';
+    cmd += 'Add-PrinterPort -ComputerName \'' + server + '\' -Name $portName -PrinterHostAddress "' + portIP + '"; ';
+    cmd += '} ';
+    cmd += 'Add-Printer -ComputerName \'' + server + '\' -Name "' + printerName + '" -PortName $portName -DriverName "' + driverName + '" -Shared $true -ShareName "' + shareName + '"';
+
+    runPowerShell(cmd); // Executes the PowerShell command
+    alert("Printer installation and sharing command sent.");
+}
+
+ function listPrinters() {
       var server = sanitizeInput(document.getElementById("printerListServer").value);
       if (!server) {
         alert("Please enter a valid server name.");
@@ -119,6 +120,8 @@
       var cmd = "Get-Printer -ComputerName '" + server + "' | Select-Object Name, ShareName, DriverName | Format-Table -AutoSize";
       runPowerShell(cmd, "outputPrinterList");
     }
+
+
   </script>
 </head>
 
@@ -141,11 +144,12 @@
   <textarea id="outputDrivers" rows="6" cols="80"></textarea>
 
   <h3>Install Printer on Server</h3>
-  <label>Server:</label> <input type="text" id="installServer" /><br/>
-  <label>Port (IP):</label> <input type="text" id="installPort" /><br/>
-  <label>Printer Share Name:</label> <input type="text" id="installShare" /><br/>
-  <label>Printer Driver Name:</label> <input type="text" id="printerDriver" placeholder="e.g., HP Universal Printing PCL 6" /><br/>
-  <button onclick="installPrinter()">Install Printer on Server</button><br/>
+<label>Server:</label> <input type="text" id="installServer" /><br/>
+<label>Port (IP):</label> <input type="text" id="installPort" /><br/>
+<label>Printer Name (local):</label> <input type="text" id="installName" /><br/>
+<label>Printer Share Name (network):</label> <input type="text" id="installShare" /><br/>
+<label>Printer Driver Name:</label> <input type="text" id="printerDriver" placeholder="e.g., HP Universal Printing PCL 6" /><br/>
+<button onclick="installPrinter()">Install Printer on Server</button><br/>
 
   <h3>List Printers on Server</h3>
   <label>Server:</label> <input type="text" id="printerListServer" />
